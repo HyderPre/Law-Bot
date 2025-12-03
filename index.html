@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LawBot – Legal Query Assistant</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-logo">⚖️</div>
+        <div class="brand-text">
+          <h1>LawBot</h1>
+          <p class="tagline">Indian legal query assistant (educational use only)</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <!-- Left: Input -->
+      <section class="query-section card">
+        <h2>Your Legal Query</h2>
+        <p class="helper-text">
+          Describe your problem in simple English. Avoid personal details like names, phone numbers, or exact addresses.
+        </p>
+
+        <label for="queryInput" class="visually-hidden">Enter your legal query</label>
+        <textarea
+          id="queryInput"
+          rows="5"
+          placeholder="Example: My landlord is not returning my security deposit even after I vacated the flat..."
+        ></textarea>
+
+        <div class="controls">
+          <button id="analyzeBtn">Analyze</button>
+          <button id="clearBtn" class="secondary">Clear</button>
+        </div>
+
+        <p id="statusMessage" class="status-message" aria-live="polite"></p>
+      </section>
+
+      <!-- Right: Output -->
+      <section class="results-section">
+
+        <div class="card result-block" id="categoryBlock">
+          <h2>Classification</h2>
+          <div class="pill-container">
+            <span class="pill pill-category" id="categoryPill">Category: –</span>
+            <span class="pill pill-subcategory" id="subCategoryPill">Sub-category: –</span>
+          </div>
+          <p class="small-note" id="categoryNote"></p>
+        </div>
+
+        <div class="card result-block" id="lawsBlock">
+          <h2>Relevant Laws / Sections</h2>
+          <ul id="lawsList" class="list"></ul>
+          <p class="small-note" id="lawsNote"></p>
+        </div>
+
+        <div class="card result-block" id="adviceBlock">
+          <h2>Suggested Steps</h2>
+          <p id="adviceText" class="advice-text">No advice yet. Submit a query to see guidance.</p>
+        </div>
+
+        <div class="card result-block" id="casesBlock">
+          <h2>Reference Cases</h2>
+          <ul id="casesList" class="list"></ul>
+          <p class="small-note" id="casesNote"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div class="disclaimer">
+        <strong>Disclaimer:</strong>
+        This tool is for informational and educational purposes only. It is <strong>not</strong> a substitute for professional legal advice or representation. 
+        For serious or urgent matters, please consult a qualified advocate or appropriate legal authority.
+      </div>
+      <div class="meta">
+        <span>Built as an academic project.</span>
+      </div>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
