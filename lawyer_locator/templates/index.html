@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lawyer & Affidavit Finder</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <h2>⚖️ Lawyer & Affidavit Maker Finder</h2>
+
+  <form id="searchForm">
+    <input type="text" id="address" placeholder="Enter address (e.g. Connaught Place, New Delhi)" required />
+    <button type="submit">Search</button>
+  </form>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    const map = L.map("map").setView([20.5937, 78.9629], 5); // Default view on India
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
+    }).addTo(map);
+
+    document.getElementById("searchForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const address = document.getElementById("address").value;
+
+      fetch("/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ address }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.error) {
+            alert(data.error);
+            return;
+          }
+
+          map.setView([data.lat, data.lon], 14);
+          L.marker([data.lat, data.lon]).addTo(map).bindPopup("📍 Search Location").openPopup();
+
+          data.places.forEach((p) => {
+            L.marker([p.lat, p.lon])
+              .addTo(map)
+              .bindPopup(`<b>${p.name}</b><br>${p.address}`);
+          });
+
+          if (data.places.length === 0) {
+            alert("No nearby lawyers or affidavit makers found.");
+          }
+        })
+        .catch(() => alert("Error fetching data from server."));
+    });
+  </script>
+</body>
+</html>

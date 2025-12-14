@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #0f172a;
+  color: #f8fafc;
+  text-align: center;
+}
+
+h2 {
+  margin-top: 1rem;
+  color: #93c5fd;
+}
+
+form {
+  margin: 1rem auto;
+}
+
+input {
+  padding: 0.6rem;
+  width: 300px;
+  border: none;
+  border-radius: 6px;
+}
+
+button {
+  padding: 0.6rem 1rem;
+  background: #2563eb;
+  border: none;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#map {
+  height: 85vh;
+  width: 95%;
+  margin: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+}
